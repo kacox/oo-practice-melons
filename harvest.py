@@ -66,7 +66,7 @@ def make_melon_type_lookup(melon_types):
     melon_codes = {}
 
     for melon in melon_types:
-    	melon_codes[melon.code] = melon.name
+    	melon_codes[melon.code] = melon
 
     return melon_codes
 
@@ -81,11 +81,43 @@ class Melon(object):
 
     # Fill in the rest
     # Needs __init__ and is_sellable methods
+    def __init__(self, melon_type, shape_rating, color_rating, harvested_from, harvested_by):
+
+    	self.melon_type = melon_type
+    	self.shape_rating = shape_rating
+    	self.color_rating = color_rating
+    	self.harvested_from = harvested_from
+    	self.harvested_by = harvested_by
+
+    def is_sellable(self):
+
+    	if self.shape_rating > 5 and self.color_rating > 5:
+    		return True
+    	else:
+    		return False
+
 
 def make_melons(melon_types):
     """Returns a list of Melon objects."""
 
-    # Fill in the rest
+    melon_lookup = make_melon_type_lookup(melon_types)
+
+    # make a bunch of Melon objects
+    melon_1 = Melon(melon_lookup["yw"], 8, 7, 2, "Sheila")
+    melon_2 = Melon(melon_lookup["yw"], 3, 4, 2, "Sheila")
+    melon_3 = Melon(melon_lookup["yw"], 9, 8, 3, "Sheila")
+    melon_4 = Melon(melon_lookup["cas"], 10, 6, 35, "Sheila")
+    melon_5 = Melon(melon_lookup["cren"], 8 ,9, 35, "Michael")
+    melon_6 = Melon(melon_lookup["cren"], 8, 2, 35, "Michael")
+    melon_7 = Melon(melon_lookup["cren"], 2, 3, 4, "Michael")
+    melon_8 = Melon(melon_lookup["musk"], 6, 7, 4, "Michael")
+    melon_9 = Melon(melon_lookup["yw"], 7, 10, 3, "Sheila")
+
+    return [melon_1, melon_2, melon_3, melon_4, melon_5, melon_6, melon_7, 
+    		 melon_8, melon_9]
+
+
+
 
 def get_sellability_report(melons):
     """Given a list of melon object, prints whether each one is sellable."""
@@ -93,4 +125,7 @@ def get_sellability_report(melons):
     # Fill in the rest 
 
 
+# list of MelonType objects
+melon_types = make_melon_types()
 
+print(make_melons(melon_types))
